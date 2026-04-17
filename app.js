@@ -1,9 +1,61 @@
 // ============================================================
 // 設定
 // ============================================================
-const WORK_SECONDS  = 50 * 60;
-const BREAK_SECONDS = 10 * 60;
-const STORAGE_KEY   = 'pomodoro_state';
+const STORAGE_KEY      = 'pomodoro_state';
+const SETTINGS_KEY     = 'pomodoro_settings';
+const DEFAULT_WORK_MIN  = 50;
+const DEFAULT_BREAK_MIN = 10;
+
+let WORK_SECONDS  = DEFAULT_WORK_MIN  * 60;
+let BREAK_SECONDS = DEFAULT_BREAK_MIN * 60;
+
+function loadSettings() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+    if (!s) return;
+    const w = parseInt(s.workMin,  10);
+    const b = parseInt(s.breakMin, 10);
+    if (w >= 1 && w <= 180) WORK_SECONDS  = w * 60;
+    if (b >= 1 && b <= 60)  BREAK_SECONDS = b * 60;
+  } catch (e) { /* 無視 */ }
+}
+
+function saveSettings(workMin, breakMin) {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ workMin, breakMin }));
+  } catch (e) { /* 無視 */ }
+}
+
+function applySettings() {
+  const workMin  = parseInt(document.getElementById('inputWork').value,  10);
+  const breakMin = parseInt(document.getElementById('inputBreak').value, 10);
+  if (isNaN(workMin)  || workMin  < 1 || workMin  > 180) return;
+  if (isNaN(breakMin) || breakMin < 1 || breakMin > 60)  return;
+
+  WORK_SECONDS  = workMin  * 60;
+  BREAK_SECONDS = breakMin * 60;
+  saveSettings(workMin, breakMin);
+
+  // タブのラベルも更新
+  document.getElementById('tabWork').textContent  = '🍅 作業 ' + workMin  + '分';
+  document.getElementById('tabBreak').textContent = '☕ 休憩 ' + breakMin + '分';
+
+  // 現在のモードのタイマーをリセット
+  if (running) {
+    clearInterval(intervalId);
+    cancelSwNotification();
+    running = false;
+    stopSound();
+  }
+  totalSeconds = mode === 'work' ? WORK_SECONDS : BREAK_SECONDS;
+  remaining    = totalSeconds;
+  startTimestamp   = null;
+  remainingAtStart = null;
+  document.getElementById('startBtn').textContent = '開始';
+  document.getElementById('logText').textContent  = '';
+  saveState();
+  updateDisplay();
+}
 
 // ============================================================
 // 状態
@@ -373,9 +425,19 @@ async function init() {
   progressEl.style.strokeDasharray  = CIRCUMFERENCE;
   progressEl.style.strokeDashoffset = 0;
 
+  // 保存済みの設定を読み込んで入力欄とタブに反映
+  loadSettings();
+  const workMin  = WORK_SECONDS  / 60;
+  const breakMin = BREAK_SECONDS / 60;
+  document.getElementById('inputWork').value   = workMin;
+  document.getElementById('inputBreak').value  = breakMin;
+  document.getElementById('tabWork').textContent  = '🍅 作業 ' + workMin  + '分';
+  document.getElementById('tabBreak').textContent = '☕ 休憩 ' + breakMin + '分';
+
   // ボタンにイベントリスナーを登録（onclickの代わり）
   document.getElementById('startBtn').addEventListener('click', toggleTimer);
   document.getElementById('resetBtn').addEventListener('click', resetTimer);
+  document.getElementById('applyBtn').addEventListener('click', applySettings);
   document.getElementById('tabWork').addEventListener('click', function() { switchMode('work'); });
   document.getElementById('tabBreak').addEventListener('click', function() { switchMode('break'); });
   document.getElementById('soundTestBtn').addEventListener('click', toggleTestSound);

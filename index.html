@@ -99,6 +99,31 @@
 
     .log { font-size: 12px; color: rgba(255,255,255,0.3); min-height: 20px; }
 
+    .settings {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin-top: 20px; flex-wrap: wrap;
+    }
+    .settings label {
+      font-size: 13px; color: rgba(255,255,255,0.45);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .settings input[type="number"] {
+      width: 56px; padding: 6px 8px; border-radius: 8px; border: none;
+      background: rgba(255,255,255,0.1); color: #fff;
+      font-size: 14px; font-weight: 600; text-align: center;
+      font-family: inherit; outline: none;
+    }
+    .settings input[type="number"]:focus {
+      background: rgba(255,255,255,0.18);
+    }
+    .btn-apply {
+      padding: 7px 18px; border-radius: 20px; font-size: 13px;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7);
+      border: none; cursor: pointer; font-family: inherit;
+      transition: all 0.2s;
+    }
+    .btn-apply:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
     .notify-banner {
       position: fixed; top: 20px; left: 50%;
       transform: translateX(-50%) translateY(-80px);
@@ -162,7 +187,19 @@
 
     <div class="log" id="logText"></div>
 
-    <div style="margin-top: 20px;">
+    <div class="settings">
+      <label>
+        🍅 作業
+        <input type="number" id="inputWork" min="1" max="180" value="50"> 分
+      </label>
+      <label>
+        ☕ 休憩
+        <input type="number" id="inputBreak" min="1" max="60" value="10"> 分
+      </label>
+      <button class="btn-apply" id="applyBtn">適用</button>
+    </div>
+
+    <div style="margin-top: 12px;">
       <button class="tab" id="soundTestBtn" style="font-size:13px; padding:8px 20px;">
         🔊 通知音をテスト
       </button>
