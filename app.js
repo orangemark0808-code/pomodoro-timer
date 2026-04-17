@@ -355,35 +355,37 @@ function ensureAudioContext() {
   return soundCtx;
 }
 
-function playBeepSet(ctx, onFinished) {
-  [0, 0.55, 1.1].forEach(delay => {
-    const osc  = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(880, ctx.currentTime + delay);
-    gain.gain.setValueAtTime(0.4, ctx.currentTime + delay);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.55);
-    osc.start(ctx.currentTime + delay);
-    osc.stop(ctx.currentTime  + delay + 0.55);
-  });
-  soundLoopTimer = setTimeout(onFinished, 3000);
-}
-
 function playSound() {
   if (soundLooping) return;
   soundLooping = true;
   const ctx = ensureAudioContext();
   if (!ctx) { soundLooping = false; return; }
-  function loop() {
-    if (!soundLooping) return;
-    playBeepSet(ctx, loop);
+
+  function doPlay() {
+    const COUNT    = 5;    // 鳴らす回数
+    const INTERVAL = 0.7;  // 間隔（秒）
+    const DURATION = 0.5;  // 1音の長さ（秒）
+
+    for (let i = 0; i < COUNT; i++) {
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime + i * INTERVAL);
+      gain.gain.setValueAtTime(0.4,   ctx.currentTime + i * INTERVAL);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * INTERVAL + DURATION);
+      osc.start(ctx.currentTime + i * INTERVAL);
+      osc.stop(ctx.currentTime  + i * INTERVAL + DURATION);
+    }
+    // 全音が鳴り終わったら自動停止
+    soundLoopTimer = setTimeout(stopSound, COUNT * INTERVAL * 1000 + 200);
   }
+
   if (ctx.state === 'running') {
-    loop();
+    doPlay();
   } else {
-    ctx.resume().then(loop).catch(() => { soundLooping = false; });
+    ctx.resume().then(doPlay).catch(() => { soundLooping = false; });
   }
 }
 
