@@ -55,128 +55,89 @@
       margin: 0 auto 40px;
     }
     .progress-ring { transform: rotate(-90deg); }
-    .progress-ring__track {
-      fill: none;
-      stroke: rgba(255,255,255,0.08);
-      stroke-width: 8;
-    }
+    .progress-ring__track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 8; }
     .progress-ring__progress {
-      fill: none;
-      stroke: #e57373;
-      stroke-width: 8;
-      stroke-linecap: round;
+      fill: none; stroke: #e57373; stroke-width: 8; stroke-linecap: round;
       transition: stroke-dashoffset 1s linear, stroke 0.8s ease;
     }
     .progress-ring__progress.break { stroke: #66bb6a; }
 
     .timer-display {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
     }
     .time {
-      font-size: 64px;
-      font-weight: 200;
-      color: #ffffff;
-      letter-spacing: -2px;
-      font-variant-numeric: tabular-nums;
-      line-height: 1;
+      font-size: 64px; font-weight: 200; color: #fff;
+      letter-spacing: -2px; font-variant-numeric: tabular-nums; line-height: 1;
     }
-    .session-count {
-      font-size: 13px;
-      color: rgba(255,255,255,0.4);
-      margin-top: 6px;
-    }
+    .session-count { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 6px; }
 
-    .controls {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
+    .controls { display: flex; gap: 16px; justify-content: center; margin-bottom: 32px; }
+
     button {
-      cursor: pointer;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      font-family: inherit;
+      cursor: pointer; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 600; transition: all 0.2s ease; font-family: inherit;
     }
-    .btn-start {
-      padding: 14px 48px;
-      background: #e57373;
-      color: #fff;
-      letter-spacing: 1px;
-    }
+    .btn-start { padding: 14px 48px; background: #e57373; color: #fff; letter-spacing: 1px; }
     .btn-start.break { background: #66bb6a; }
     .btn-start:hover { opacity: 0.85; transform: translateY(-1px); }
     .btn-start:active { transform: translateY(0); opacity: 1; }
-
-    .btn-reset {
-      padding: 14px 24px;
-      background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.6);
-    }
+    .btn-reset { padding: 14px 24px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
     .btn-reset:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.9); }
 
-    .mode-tabs {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
+    .mode-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
     .tab {
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.4);
-      cursor: pointer;
-      border: none;
-      font-family: inherit;
-      transition: all 0.2s;
+      padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 500;
+      background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4);
+      cursor: pointer; border: none; font-family: inherit; transition: all 0.2s;
     }
-    .tab.active-work { background: rgba(229,115,115,0.25); color: #e57373; }
+    .tab.active-work  { background: rgba(229,115,115,0.25); color: #e57373; }
     .tab.active-break { background: rgba(102,187,106,0.25); color: #66bb6a; }
     .tab:hover:not(.active-work):not(.active-break) {
-      background: rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7);
     }
 
-    .log {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      min-height: 20px;
-    }
+    .log { font-size: 12px; color: rgba(255,255,255,0.3); min-height: 20px; }
 
-    /* 通知バナー */
     .notify-banner {
-      position: fixed;
-      top: 20px;
-      left: 50%;
+      position: fixed; top: 20px; left: 50%;
       transform: translateX(-50%) translateY(-80px);
-      background: #fff;
-      color: #333;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      background: #fff; color: #333; padding: 14px 28px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 100;
-      white-space: nowrap;
+      z-index: 100; white-space: nowrap;
     }
     .notify-banner.show { transform: translateX(-50%) translateY(0); }
+
+    /* 通知許可バナー */
+    .permission-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #2a2a3e; color: #fff; padding: 14px 20px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; font-size: 14px; z-index: 200;
+    }
+    .permission-bar button {
+      padding: 8px 20px; font-size: 13px;
+      background: #e57373; color: #fff; border-radius: 8px;
+    }
+    .permission-bar .btn-later {
+      background: rgba(255,255,255,0.15);
+    }
+    .permission-bar.hidden { display: none; }
   </style>
 </head>
 <body>
 
   <div class="notify-banner" id="notifyBanner">🍅 タイマー終了！</div>
 
-  <div class="container" id="container">
+  <div class="permission-bar hidden" id="permissionBar">
+    📳 画面OFF中の通知のために許可が必要です
+    <button onclick="requestNotificationPermission()">許可する</button>
+    <button class="btn-later"
+            onclick="document.getElementById('permissionBar').classList.add('hidden')">後で</button>
+  </div>
+
+  <div class="container">
     <div class="mode-label" id="modeLabel">作業中</div>
     <h1>ポモドーロタイマー</h1>
 
@@ -204,7 +165,8 @@
     <div class="log" id="logText"></div>
 
     <div style="margin-top: 20px;">
-      <button class="tab" id="soundTestBtn" onclick="toggleTestSound()" style="font-size:13px; padding:8px 20px;">
+      <button class="tab" id="soundTestBtn" onclick="toggleTestSound()"
+              style="font-size:13px; padding:8px 20px;">
         🔊 通知音をテスト
       </button>
     </div>
@@ -227,13 +189,63 @@
     let running          = false;
     let sessions         = 0;
     let intervalId       = null;
-
-    // 画面OFF対策：開始時の実時刻と残り秒を記録
-    let startTimestamp   = null;  // Date.now() at last start/resume
-    let remainingAtStart = null;  // remaining seconds at last start/resume
+    let startTimestamp   = null;
+    let remainingAtStart = null;
 
     // ============================================================
-    // プログレスリング初期化
+    // Service Worker 登録
+    // ============================================================
+    let swRegistration = null;
+
+    async function registerSW() {
+      if (!('serviceWorker' in navigator)) return;
+      try {
+        swRegistration = await navigator.serviceWorker.register('./sw.js');
+
+        // SWからの「タイマー終了」メッセージを受信
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data.type === 'TIMER_ENDED') {
+            if (document.visibilityState === 'visible') {
+              onTimerEnd();
+            }
+            // 非表示の場合は visibilitychange ハンドラで処理
+          }
+        });
+      } catch (e) {
+        console.warn('ServiceWorker登録失敗:', e);
+      }
+    }
+
+    function scheduleSwNotification(delaySec) {
+      const sw = swRegistration?.active;
+      if (!sw) return;
+      sw.postMessage({ type: 'SCHEDULE', delay: delaySec * 1000, isWork: mode === 'work' });
+    }
+
+    function cancelSwNotification() {
+      const sw = swRegistration?.active;
+      if (!sw) return;
+      sw.postMessage({ type: 'CANCEL' });
+    }
+
+    // ============================================================
+    // 通知許可
+    // ============================================================
+    async function requestNotificationPermission() {
+      const result = await Notification.requestPermission();
+      document.getElementById('permissionBar').classList.add('hidden');
+      return result === 'granted';
+    }
+
+    function checkNotificationPermission() {
+      if (!('Notification' in window)) return;
+      if (Notification.permission === 'default') {
+        document.getElementById('permissionBar').classList.remove('hidden');
+      }
+    }
+
+    // ============================================================
+    // プログレスリング
     // ============================================================
     const CIRCLE_R      = 108;
     const CIRCUMFERENCE = 2 * Math.PI * CIRCLE_R;
@@ -242,12 +254,12 @@
     progressEl.style.strokeDashoffset = 0;
 
     // ============================================================
-    // localStorage 保存 / 読み込み
+    // localStorage
     // ============================================================
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         mode, totalSeconds, remaining, running, sessions,
-        startTimestamp, remainingAtStart
+        startTimestamp, remainingAtStart,
       }));
     }
 
@@ -267,7 +279,7 @@
     }
 
     // ============================================================
-    // 経過時間から remaining を再計算
+    // 実時刻ベースで remaining を補正
     // ============================================================
     function recalcRemaining() {
       if (!running || startTimestamp === null) return;
@@ -283,19 +295,16 @@
       const m = Math.floor(r / 60).toString().padStart(2, '0');
       const s = (r % 60).toString().padStart(2, '0');
       document.getElementById('timeDisplay').textContent = `${m}:${s}`;
-
-      const ratio = r / totalSeconds;
-      progressEl.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
-
+      progressEl.style.strokeDashoffset = CIRCUMFERENCE * (1 - r / totalSeconds);
       document.title = `${m}:${s} — ${mode === 'work' ? '作業中' : '休憩中'}`;
     }
 
     function updateModeUI() {
       const isBreak = mode === 'break';
-      document.getElementById('modeLabel').textContent = isBreak ? '休憩中' : '作業中';
-      document.getElementById('modeLabel').className   = 'mode-label' + (isBreak ? ' break' : '');
-      document.getElementById('startBtn').className    = 'btn-start'  + (isBreak ? ' break' : '');
-      progressEl.className = 'progress-ring__progress' + (isBreak ? ' break' : '');
+      document.getElementById('modeLabel').textContent  = isBreak ? '休憩中' : '作業中';
+      document.getElementById('modeLabel').className    = 'mode-label' + (isBreak ? ' break' : '');
+      document.getElementById('startBtn').className     = 'btn-start'  + (isBreak ? ' break' : '');
+      progressEl.className = 'progress-ring__progress'  + (isBreak ? ' break' : '');
       document.body.className = isBreak ? 'break-mode' : '';
       document.getElementById('tabWork').className  = 'tab' + (mode === 'work'  ? ' active-work'  : '');
       document.getElementById('tabBreak').className = 'tab' + (mode === 'break' ? ' active-break' : '');
@@ -311,20 +320,23 @@
     }
 
     function start() {
-      // 開始 / 再開 時に実時刻を記録
+      if (Notification.permission === 'default') requestNotificationPermission();
+
       startTimestamp   = Date.now();
       remainingAtStart = remaining;
       running          = true;
       document.getElementById('startBtn').textContent = '一時停止';
       saveState();
 
-      // setInterval は1秒ごとの UI 更新専用（タイミング補正は recalc で行う）
+      scheduleSwNotification(remaining); // SWにバックグラウンド通知を登録
+
       intervalId = setInterval(tick, 1000);
     }
 
     function pause() {
-      recalcRemaining();          // 正確な残り時間を取得してから止める
+      recalcRemaining();
       clearInterval(intervalId);
+      cancelSwNotification();
       running          = false;
       startTimestamp   = null;
       remainingAtStart = null;
@@ -335,18 +347,18 @@
 
     function resetTimer() {
       clearInterval(intervalId);
+      cancelSwNotification();
       running          = false;
       startTimestamp   = null;
       remainingAtStart = null;
       remaining        = totalSeconds;
       document.getElementById('startBtn').textContent = '開始';
+      document.getElementById('logText').textContent  = '';
       saveState();
       updateDisplay();
-      document.getElementById('logText').textContent = '';
       stopSound();
     }
 
-    // 毎秒 UI を更新するだけ（実時刻ベースで補正）
     function tick() {
       recalcRemaining();
       updateDisplay();
@@ -354,12 +366,19 @@
       if (remaining <= 0) { onTimerEnd(); }
     }
 
+    let timerEndedLock = false; // 二重実行防止
     function onTimerEnd() {
+      if (timerEndedLock) return;
+      timerEndedLock = true;
+      setTimeout(() => { timerEndedLock = false; }, 2000);
+
       clearInterval(intervalId);
+      cancelSwNotification();
       running          = false;
       startTimestamp   = null;
       remainingAtStart = null;
       remaining        = 0;
+
       playSound();
       showNotify();
 
@@ -391,20 +410,21 @@
 
     function switchMode(m) {
       if (running) pause();
+      cancelSwNotification();
       mode             = m;
       totalSeconds     = m === 'work' ? WORK_SECONDS : BREAK_SECONDS;
       remaining        = totalSeconds;
       startTimestamp   = null;
       remainingAtStart = null;
       document.getElementById('startBtn').textContent = '開始';
-      document.getElementById('logText').textContent = '';
+      document.getElementById('logText').textContent  = '';
       updateModeUI();
       updateDisplay();
       saveState();
     }
 
     // ============================================================
-    // 画面OFF / バックグラウンド復帰の処理
+    // 画面OFF / バックグラウンド復帰
     // ============================================================
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible') return;
@@ -413,12 +433,9 @@
       recalcRemaining();
 
       if (remaining <= 0) {
-        // 画面OFFの間にタイマーが終了していた
         onTimerEnd();
       } else {
-        // タイマー継続：表示を正しい時刻に更新
         updateDisplay();
-        // interval が止まっていた場合は再開
         clearInterval(intervalId);
         intervalId = setInterval(tick, 1000);
       }
@@ -468,16 +485,12 @@
 
     function toggleTestSound() {
       const btn = document.getElementById('soundTestBtn');
-      if (soundLooping) {
-        stopSound();
-      } else {
-        playSound();
-        btn.textContent = '⏹ 音を止める';
-      }
+      if (soundLooping) { stopSound(); }
+      else { playSound(); btn.textContent = '⏹ 音を止める'; }
     }
 
     // ============================================================
-    // 通知バナー
+    // 通知バナー（画面内）
     // ============================================================
     function showNotify() {
       const banner = document.getElementById('notifyBanner');
@@ -486,51 +499,42 @@
         : '☕ 休憩終了！作業を再開しましょう';
       banner.classList.add('show');
       setTimeout(() => banner.classList.remove('show'), 4000);
-
-      if (Notification.permission === 'granted') {
-        new Notification('ポモドーロタイマー', {
-          body: mode === 'work' ? '作業50分完了！10分休憩しましょう' : '休憩終了！次のセッションへ',
-        });
-      }
-    }
-
-    if (Notification.permission === 'default') {
-      Notification.requestPermission();
     }
 
     // ============================================================
-    // 起動時の復元
+    // 起動時の状態復元
     // ============================================================
-    function init() {
+    async function init() {
+      await registerSW();
+      checkNotificationPermission();
+
       const restored = loadState();
 
       if (restored && running) {
-        // アプリを閉じていた間にタイマーが走っていた → 経過時間を再計算
         recalcRemaining();
+
         if (remaining <= 0) {
-          // 閉じている間に終了していた
+          // 閉じていた間にタイマーが終了
           remaining = 0;
           running   = false;
           updateModeUI();
           updateDisplay();
-          document.getElementById('logText').textContent = '⚠️ 閉じている間にタイマーが終了しました';
+          document.getElementById('logText').textContent  = '⚠️ 閉じている間にタイマーが終了しました';
           document.getElementById('startBtn').textContent = '開始';
           saveState();
           playSound();
-          showNotify();
         } else {
-          // まだ時間が残っている → 自動で再開
+          // まだ残り時間あり → 自動再開
           updateModeUI();
           updateDisplay();
           document.getElementById('startBtn').textContent = '一時停止';
+          scheduleSwNotification(remaining); // SWに残り時間を再登録
           intervalId = setInterval(tick, 1000);
         }
       } else {
         updateModeUI();
         updateDisplay();
-        if (!restored) {
-          document.getElementById('startBtn').textContent = '開始';
-        } else {
+        if (restored) {
           document.getElementById('startBtn').textContent = running ? '一時停止' : '開始';
         }
       }
