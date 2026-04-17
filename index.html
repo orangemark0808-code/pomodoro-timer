@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ポモドーロタイマー</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
@@ -20,19 +16,16 @@
       background: #1a1a2e;
       transition: background 0.8s ease;
     }
-
-    body.break-mode {
-      background: #0d2b1e;
-    }
+    body.break-mode { background: #0d2b1e; }
 
     .container {
       text-align: center;
       padding: 48px 56px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
       border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
       min-width: 360px;
     }
 
@@ -45,37 +38,28 @@
       color: #e57373;
       transition: color 0.8s ease;
     }
-
-    .mode-label.break {
-      color: #66bb6a;
-    }
+    .mode-label.break { color: #66bb6a; }
 
     h1 {
       font-size: 15px;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255,255,255,0.5);
       font-weight: 400;
       margin-bottom: 40px;
       letter-spacing: 1px;
     }
 
-    /* 円形プログレスバー */
     .progress-ring-wrapper {
       position: relative;
       width: 240px;
       height: 240px;
       margin: 0 auto 40px;
     }
-
-    .progress-ring {
-      transform: rotate(-90deg);
-    }
-
+    .progress-ring { transform: rotate(-90deg); }
     .progress-ring__track {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.08);
+      stroke: rgba(255,255,255,0.08);
       stroke-width: 8;
     }
-
     .progress-ring__progress {
       fill: none;
       stroke: #e57373;
@@ -83,10 +67,7 @@
       stroke-linecap: round;
       transition: stroke-dashoffset 1s linear, stroke 0.8s ease;
     }
-
-    .progress-ring__progress.break {
-      stroke: #66bb6a;
-    }
+    .progress-ring__progress.break { stroke: #66bb6a; }
 
     .timer-display {
       position: absolute;
@@ -94,7 +75,6 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
     .time {
       font-size: 64px;
       font-weight: 200;
@@ -103,21 +83,18 @@
       font-variant-numeric: tabular-nums;
       line-height: 1;
     }
-
     .session-count {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255,255,255,0.4);
       margin-top: 6px;
     }
 
-    /* ボタン群 */
     .controls {
       display: flex;
       gap: 16px;
       justify-content: center;
       margin-bottom: 32px;
     }
-
     button {
       cursor: pointer;
       border: none;
@@ -127,79 +104,51 @@
       transition: all 0.2s ease;
       font-family: inherit;
     }
-
     .btn-start {
       padding: 14px 48px;
       background: #e57373;
       color: #fff;
       letter-spacing: 1px;
     }
-
-    .btn-start.break {
-      background: #66bb6a;
-    }
-
-    .btn-start:hover {
-      opacity: 0.85;
-      transform: translateY(-1px);
-    }
-
-    .btn-start:active {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .btn-start.break { background: #66bb6a; }
+    .btn-start:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-start:active { transform: translateY(0); opacity: 1; }
 
     .btn-reset {
       padding: 14px 24px;
-      background: rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.6);
     }
+    .btn-reset:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.9); }
 
-    .btn-reset:hover {
-      background: rgba(255, 255, 255, 0.14);
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    /* モード切替タブ */
     .mode-tabs {
       display: flex;
       gap: 8px;
       justify-content: center;
       margin-bottom: 16px;
     }
-
     .tab {
       padding: 8px 20px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
-      background: rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.4);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.4);
       cursor: pointer;
       border: none;
       font-family: inherit;
       transition: all 0.2s;
     }
-
-    .tab.active-work {
-      background: rgba(229, 115, 115, 0.25);
-      color: #e57373;
-    }
-
-    .tab.active-break {
-      background: rgba(102, 187, 106, 0.25);
-      color: #66bb6a;
-    }
-
+    .tab.active-work { background: rgba(229,115,115,0.25); color: #e57373; }
+    .tab.active-break { background: rgba(102,187,106,0.25); color: #66bb6a; }
     .tab:hover:not(.active-work):not(.active-break) {
-      background: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
     }
 
-    /* 完了ログ */
     .log {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255,255,255,0.3);
       min-height: 20px;
     }
 
@@ -220,10 +169,7 @@
       z-index: 100;
       white-space: nowrap;
     }
-
-    .notify-banner.show {
-      transform: translateX(-50%) translateY(0);
-    }
+    .notify-banner.show { transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
@@ -234,7 +180,6 @@
     <div class="mode-label" id="modeLabel">作業中</div>
     <h1>ポモドーロタイマー</h1>
 
-    <!-- 円形プログレス -->
     <div class="progress-ring-wrapper">
       <svg class="progress-ring" width="240" height="240" viewBox="0 0 240 240">
         <circle class="progress-ring__track" cx="120" cy="120" r="108"/>
@@ -246,121 +191,175 @@
       </div>
     </div>
 
-    <!-- 操作ボタン -->
     <div class="controls">
       <button class="btn-start" id="startBtn" onclick="toggleTimer()">開始</button>
       <button class="btn-reset" onclick="resetTimer()">リセット</button>
     </div>
 
-    <!-- モードタブ -->
     <div class="mode-tabs">
-      <button class="tab active-work" id="tabWork" onclick="switchMode('work')">🍅 作業 50分</button>
-      <button class="tab" id="tabBreak" onclick="switchMode('break')">☕ 休憩 10分</button>
+      <button class="tab active-work" id="tabWork"  onclick="switchMode('work')">🍅 作業 50分</button>
+      <button class="tab"             id="tabBreak" onclick="switchMode('break')">☕ 休憩 10分</button>
     </div>
 
     <div class="log" id="logText"></div>
 
-    <!-- 音テストボタン -->
     <div style="margin-top: 20px;">
-      <button class="tab" id="soundTestBtn" onclick="toggleTestSound()" style="font-size:13px; padding: 8px 20px;">
+      <button class="tab" id="soundTestBtn" onclick="toggleTestSound()" style="font-size:13px; padding:8px 20px;">
         🔊 通知音をテスト
       </button>
     </div>
   </div>
 
   <script>
-    // ---- 設定 ----
-    const WORK_SECONDS  = 50 * 60;  // 50分
-    const BREAK_SECONDS = 10 * 60;  // 10分
+    // ============================================================
+    // 設定
+    // ============================================================
+    const WORK_SECONDS  = 50 * 60;
+    const BREAK_SECONDS = 10 * 60;
+    const STORAGE_KEY   = 'pomodoro_state';
 
-    // ---- 状態 ----
-    let mode         = 'work';   // 'work' | 'break'
-    let totalSeconds = WORK_SECONDS;
-    let remaining    = WORK_SECONDS;
-    let running      = false;
-    let intervalId   = null;
-    let sessions     = 0;        // 完了した作業セッション数
+    // ============================================================
+    // 状態
+    // ============================================================
+    let mode             = 'work';
+    let totalSeconds     = WORK_SECONDS;
+    let remaining        = WORK_SECONDS;
+    let running          = false;
+    let sessions         = 0;
+    let intervalId       = null;
 
-    // 円の周長 (2πr)
-    const CIRCLE_R = 108;
+    // 画面OFF対策：開始時の実時刻と残り秒を記録
+    let startTimestamp   = null;  // Date.now() at last start/resume
+    let remainingAtStart = null;  // remaining seconds at last start/resume
+
+    // ============================================================
+    // プログレスリング初期化
+    // ============================================================
+    const CIRCLE_R      = 108;
     const CIRCUMFERENCE = 2 * Math.PI * CIRCLE_R;
-    const progressEl = document.getElementById('progressCircle');
+    const progressEl    = document.getElementById('progressCircle');
     progressEl.style.strokeDasharray  = CIRCUMFERENCE;
     progressEl.style.strokeDashoffset = 0;
 
-    // ---- 表示更新 ----
+    // ============================================================
+    // localStorage 保存 / 読み込み
+    // ============================================================
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        mode, totalSeconds, remaining, running, sessions,
+        startTimestamp, remainingAtStart
+      }));
+    }
+
+    function loadState() {
+      try {
+        const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!s) return false;
+        mode             = s.mode             ?? 'work';
+        totalSeconds     = s.totalSeconds     ?? WORK_SECONDS;
+        remaining        = s.remaining        ?? WORK_SECONDS;
+        running          = s.running          ?? false;
+        sessions         = s.sessions         ?? 0;
+        startTimestamp   = s.startTimestamp   ?? null;
+        remainingAtStart = s.remainingAtStart ?? null;
+        return true;
+      } catch { return false; }
+    }
+
+    // ============================================================
+    // 経過時間から remaining を再計算
+    // ============================================================
+    function recalcRemaining() {
+      if (!running || startTimestamp === null) return;
+      const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+      remaining = Math.max(remainingAtStart - elapsed, 0);
+    }
+
+    // ============================================================
+    // 表示更新
+    // ============================================================
     function updateDisplay() {
-      const m = Math.floor(remaining / 60).toString().padStart(2, '0');
-      const s = (remaining % 60).toString().padStart(2, '0');
+      const r = Math.max(remaining, 0);
+      const m = Math.floor(r / 60).toString().padStart(2, '0');
+      const s = (r % 60).toString().padStart(2, '0');
       document.getElementById('timeDisplay').textContent = `${m}:${s}`;
 
-      // プログレスリング
-      const ratio = remaining / totalSeconds;
+      const ratio = r / totalSeconds;
       progressEl.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
 
-      // ブラウザタブのタイトル
-      document.title = `${m}:${s} - ${mode === 'work' ? '作業中' : '休憩中'}`;
+      document.title = `${m}:${s} — ${mode === 'work' ? '作業中' : '休憩中'}`;
     }
 
     function updateModeUI() {
       const isBreak = mode === 'break';
-
       document.getElementById('modeLabel').textContent = isBreak ? '休憩中' : '作業中';
       document.getElementById('modeLabel').className   = 'mode-label' + (isBreak ? ' break' : '');
-      document.getElementById('startBtn').className    = 'btn-start' + (isBreak ? ' break' : '');
+      document.getElementById('startBtn').className    = 'btn-start'  + (isBreak ? ' break' : '');
       progressEl.className = 'progress-ring__progress' + (isBreak ? ' break' : '');
       document.body.className = isBreak ? 'break-mode' : '';
-
-      document.getElementById('tabWork').className  = 'tab' + (mode === 'work' ? ' active-work' : '');
+      document.getElementById('tabWork').className  = 'tab' + (mode === 'work'  ? ' active-work'  : '');
       document.getElementById('tabBreak').className = 'tab' + (mode === 'break' ? ' active-break' : '');
-
       document.getElementById('sessionCount').textContent =
-        `セッション ${sessions + (mode === 'work' ? 1 : sessions)}`;
+        `セッション ${sessions + (mode === 'work' ? 1 : 0)}`;
     }
 
-    // ---- タイマー制御 ----
+    // ============================================================
+    // タイマー制御
+    // ============================================================
     function toggleTimer() {
-      if (running) {
-        pause();
-      } else {
-        start();
-      }
+      if (running) { pause(); } else { start(); }
     }
 
     function start() {
-      running = true;
+      // 開始 / 再開 時に実時刻を記録
+      startTimestamp   = Date.now();
+      remainingAtStart = remaining;
+      running          = true;
       document.getElementById('startBtn').textContent = '一時停止';
+      saveState();
+
+      // setInterval は1秒ごとの UI 更新専用（タイミング補正は recalc で行う）
       intervalId = setInterval(tick, 1000);
     }
 
     function pause() {
-      running = false;
-      document.getElementById('startBtn').textContent = '再開';
+      recalcRemaining();          // 正確な残り時間を取得してから止める
       clearInterval(intervalId);
+      running          = false;
+      startTimestamp   = null;
+      remainingAtStart = null;
+      document.getElementById('startBtn').textContent = '再開';
+      saveState();
+      updateDisplay();
     }
 
     function resetTimer() {
       clearInterval(intervalId);
-      running   = false;
-      remaining = totalSeconds;
+      running          = false;
+      startTimestamp   = null;
+      remainingAtStart = null;
+      remaining        = totalSeconds;
       document.getElementById('startBtn').textContent = '開始';
+      saveState();
       updateDisplay();
       document.getElementById('logText').textContent = '';
       stopSound();
     }
 
+    // 毎秒 UI を更新するだけ（実時刻ベースで補正）
     function tick() {
-      if (remaining <= 0) {
-        onTimerEnd();
-        return;
-      }
-      remaining--;
+      recalcRemaining();
       updateDisplay();
+      saveState();
+      if (remaining <= 0) { onTimerEnd(); }
     }
 
     function onTimerEnd() {
       clearInterval(intervalId);
-      running = false;
+      running          = false;
+      startTimestamp   = null;
+      remainingAtStart = null;
+      remaining        = 0;
       playSound();
       showNotify();
 
@@ -368,61 +367,83 @@
         sessions++;
         document.getElementById('logText').textContent =
           `✅ 作業 ${sessions} セッション完了 — 休憩へ`;
-        // 自動で休憩モードへ
         setTimeout(() => autoSwitchMode('break'), 1200);
       } else {
         document.getElementById('logText').textContent =
           `☕ 休憩終了 — 次のセッションを始めましょう`;
         setTimeout(() => autoSwitchMode('work'), 1200);
       }
+      saveState();
     }
 
     function autoSwitchMode(nextMode) {
       stopSound();
-      mode         = nextMode;
-      totalSeconds = nextMode === 'work' ? WORK_SECONDS : BREAK_SECONDS;
-      remaining    = totalSeconds;
+      mode             = nextMode;
+      totalSeconds     = nextMode === 'work' ? WORK_SECONDS : BREAK_SECONDS;
+      remaining        = totalSeconds;
+      startTimestamp   = null;
+      remainingAtStart = null;
       document.getElementById('startBtn').textContent = '開始';
       updateModeUI();
       updateDisplay();
+      saveState();
     }
 
-    // ---- 手動モード切替 ----
     function switchMode(m) {
       if (running) pause();
-      mode         = m;
-      totalSeconds = m === 'work' ? WORK_SECONDS : BREAK_SECONDS;
-      remaining    = totalSeconds;
+      mode             = m;
+      totalSeconds     = m === 'work' ? WORK_SECONDS : BREAK_SECONDS;
+      remaining        = totalSeconds;
+      startTimestamp   = null;
+      remainingAtStart = null;
       document.getElementById('startBtn').textContent = '開始';
       document.getElementById('logText').textContent = '';
       updateModeUI();
       updateDisplay();
+      saveState();
     }
 
-    // ---- 通知音（Web Audio API）----
-    let soundLooping  = false;
-    let soundCtx      = null;
+    // ============================================================
+    // 画面OFF / バックグラウンド復帰の処理
+    // ============================================================
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState !== 'visible') return;
+      if (!running) return;
+
+      recalcRemaining();
+
+      if (remaining <= 0) {
+        // 画面OFFの間にタイマーが終了していた
+        onTimerEnd();
+      } else {
+        // タイマー継続：表示を正しい時刻に更新
+        updateDisplay();
+        // interval が止まっていた場合は再開
+        clearInterval(intervalId);
+        intervalId = setInterval(tick, 1000);
+      }
+    });
+
+    // ============================================================
+    // 通知音（Web Audio API）
+    // ============================================================
+    let soundLooping   = false;
+    let soundCtx       = null;
     let soundLoopTimer = null;
 
-    // ポーン×3回を1セットとして鳴らす
     function playBeepSet(ctx, onFinished) {
-      const delays = [0, 0.55, 1.1];
-      delays.forEach(delay => {
+      [0, 0.55, 1.1].forEach(delay => {
         const osc  = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
-
         osc.type = 'sine';
         osc.frequency.setValueAtTime(880, ctx.currentTime + delay);
         gain.gain.setValueAtTime(0.4, ctx.currentTime + delay);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.55);
-
         osc.start(ctx.currentTime + delay);
-        osc.stop(ctx.currentTime + delay + 0.55);
+        osc.stop(ctx.currentTime  + delay + 0.55);
       });
-
-      // 3回分(1.65秒) + インターバル(1.35秒) = 計3秒後に次のセットへ
       soundLoopTimer = setTimeout(onFinished, 3000);
     }
 
@@ -430,7 +451,6 @@
       if (soundLooping) return;
       soundLooping = true;
       soundCtx = new (window.AudioContext || window.webkitAudioContext)();
-
       function loop() {
         if (!soundLooping) return;
         playBeepSet(soundCtx, loop);
@@ -441,11 +461,7 @@
     function stopSound() {
       soundLooping = false;
       clearTimeout(soundLoopTimer);
-      if (soundCtx) {
-        soundCtx.close();
-        soundCtx = null;
-      }
-      // テストボタンをリセット
+      if (soundCtx) { soundCtx.close(); soundCtx = null; }
       const btn = document.getElementById('soundTestBtn');
       if (btn) btn.textContent = '🔊 通知音をテスト';
     }
@@ -460,30 +476,67 @@
       }
     }
 
-    // ---- 通知バナー ----
+    // ============================================================
+    // 通知バナー
+    // ============================================================
     function showNotify() {
       const banner = document.getElementById('notifyBanner');
-      banner.textContent = mode === 'work' ? '🍅 作業時間終了！休憩しましょう' : '☕ 休憩終了！作業を再開しましょう';
+      banner.textContent = mode === 'work'
+        ? '🍅 作業時間終了！休憩しましょう'
+        : '☕ 休憩終了！作業を再開しましょう';
       banner.classList.add('show');
       setTimeout(() => banner.classList.remove('show'), 4000);
 
-      // ブラウザ通知（許可されていれば）
       if (Notification.permission === 'granted') {
         new Notification('ポモドーロタイマー', {
           body: mode === 'work' ? '作業50分完了！10分休憩しましょう' : '休憩終了！次のセッションへ',
-          icon: '🍅'
         });
       }
     }
 
-    // ブラウザ通知の許可を取得
     if (Notification.permission === 'default') {
       Notification.requestPermission();
     }
 
-    // ---- 初期化 ----
-    updateModeUI();
-    updateDisplay();
+    // ============================================================
+    // 起動時の復元
+    // ============================================================
+    function init() {
+      const restored = loadState();
+
+      if (restored && running) {
+        // アプリを閉じていた間にタイマーが走っていた → 経過時間を再計算
+        recalcRemaining();
+        if (remaining <= 0) {
+          // 閉じている間に終了していた
+          remaining = 0;
+          running   = false;
+          updateModeUI();
+          updateDisplay();
+          document.getElementById('logText').textContent = '⚠️ 閉じている間にタイマーが終了しました';
+          document.getElementById('startBtn').textContent = '開始';
+          saveState();
+          playSound();
+          showNotify();
+        } else {
+          // まだ時間が残っている → 自動で再開
+          updateModeUI();
+          updateDisplay();
+          document.getElementById('startBtn').textContent = '一時停止';
+          intervalId = setInterval(tick, 1000);
+        }
+      } else {
+        updateModeUI();
+        updateDisplay();
+        if (!restored) {
+          document.getElementById('startBtn').textContent = '開始';
+        } else {
+          document.getElementById('startBtn').textContent = running ? '一時停止' : '開始';
+        }
+      }
+    }
+
+    init();
   </script>
 </body>
 </html>
